@@ -28,6 +28,13 @@ Run the following command in this repo:
 ./gradlew clean bootRun
 ```
 
+Run with UI hot deploy
+```bash
+./gradlew bootRun --args='--vaadin.frontend.hotdeploy=true'
+```
+or set `vaadin.frontend.hotdeploy=true` in `application.properties`
+
+
 Now you can open the [http://localhost:8080](http://localhost:8080) with your browser.
 
 ## Running With Spring Boot from your IDE In Development Mode

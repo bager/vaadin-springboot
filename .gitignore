@@ -1,10 +1,13 @@
 HELP.md
 .gradle
 build/
-!**/dev-bundle/webapp/VAADIN/build
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+
+### FRONTEND ###
+#!**/dev-bundle/webapp/VAADIN/build
+/src/main/dev-bundle/
 
 ### STS ###
 .apt_generated
