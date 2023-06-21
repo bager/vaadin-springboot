@@ -36,6 +36,9 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+
 	runtimeOnly('org.postgresql:postgresql')
 	implementation('org.parttio:line-awesome:1.1.0')
 }

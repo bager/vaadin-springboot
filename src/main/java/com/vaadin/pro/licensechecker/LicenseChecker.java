@@ -47,7 +47,7 @@ public class LicenseChecker {
         checkLicense(productName, productVersion, buildType, systemBrowserUrlHandler);
     }
 
-    /** @deprecated */
+    @Deprecated
     public static void checkLicense(String productName, String productVersion, Consumer<String> noKeyUrlHandler) {
         checkLicense(productName, productVersion, BuildType.DEVELOPMENT, noKeyUrlHandler);
     }
