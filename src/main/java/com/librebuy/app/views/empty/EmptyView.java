@@ -33,10 +33,15 @@ public class EmptyView extends VerticalLayout {
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         getStyle().set("text-align", "center");
 
-        Div div = new Div();
-        div.style("color", "red");
-        div.getBase().setText("dupa");
-        add(div.getBase());
+        Div firstDiv = new Div(null)
+                .style("color", "red")
+                .setText("Pierwszy firstDiv");
+
+        firstDiv.$div()
+                .style("color", "blue")
+                .setText("Drugi secondDiv");
+
+        add(firstDiv.getBase());
     }
 
 }
