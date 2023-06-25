@@ -5,7 +5,7 @@ buildscript {
 		}
 }
 plugins {
-	id 'org.springframework.boot' version '3.1.0'
+	id 'org.springframework.boot' version '3.0.8'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'org.graalvm.buildtools.native' version '0.9.23'
 	id 'java'
@@ -16,6 +16,10 @@ repositories {
 	mavenCentral()
 	maven { setUrl("https://maven.vaadin.com/vaadin-prereleases") }
 	maven { setUrl("https://maven.vaadin.com/vaadin-addons") }
+}
+
+java {
+	sourceCompatibility = '17'
 }
 
 configurations {
@@ -47,5 +51,23 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom "com.vaadin:vaadin-bom:$vaadinVersion"
+	}
+}
+
+graalvmNative {
+	binaries.all {
+		resources.autodetect()
+	}
+	toolchainDetection = false
+}
+//-Pvaadin.productionMode
+graalvmNative {
+	binaries {
+		main {
+			javaLauncher = javaToolchains.launcherFor {
+				languageVersion = JavaLanguageVersion.of(17)
+				vendor = JvmVendorSpec.matching("GraalVM Community")
+			}
+		}
 	}
 }
