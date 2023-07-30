@@ -5,12 +5,12 @@
  * This file will be overwritten on every run. Any custom changes should be made to vite.config.ts
  */
 import path from 'path';
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
-import { createHash } from 'crypto';
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from 'fs';
+import {createHash} from 'crypto';
 import * as net from 'net';
 
-import { processThemeResources } from './build/plugins/application-theme-plugin/theme-handle.js';
-import { rewriteCssUrls } from './build/plugins/theme-loader/theme-loader-utils.js';
+import {processThemeResources} from './build/plugins/application-theme-plugin/theme-handle.js';
+import {rewriteCssUrls} from './build/plugins/theme-loader/theme-loader-utils.js';
 import settings from './build/vaadin-dev-server-settings.json';
 import {
   AssetInfo,
@@ -22,7 +22,7 @@ import {
   ResolvedConfig,
   UserConfigFn
 } from 'vite';
-import { getManifest } from 'workbox-build';
+import {getManifest} from 'workbox-build';
 
 import * as rollup from 'rollup';
 import brotli from 'rollup-plugin-brotli';
@@ -30,9 +30,9 @@ import replace from '@rollup/plugin-replace';
 import checker from 'vite-plugin-checker';
 import postcssLit from './build/plugins/rollup-plugin-postcss-lit-custom/rollup-plugin-postcss-lit.js';
 
-import { createRequire } from 'module';
+import {createRequire} from 'module';
 
-import { visualizer } from 'rollup-plugin-visualizer';
+import {visualizer} from 'rollup-plugin-visualizer';
 
 // Make `require` compatible with ES modules
 const require = createRequire(import.meta.url);
@@ -191,7 +191,9 @@ function buildSWPlugin(opts): PluginOption {
       }
     },
     async closeBundle() {
-      await build('write', [injectManifestToSWPlugin(), brotli()]);
+      if (!devMode) {
+        await build('write', [injectManifestToSWPlugin(), brotli()]);
+      }
     }
   };
 }
@@ -652,6 +654,7 @@ function preserveUsageStats() {
 
 export const vaadinConfig: UserConfigFn = (env) => {
   const devMode = env.mode === 'development';
+  const productionMode = !devMode && !devBundle
 
   if (devMode && process.env.watchDogPort) {
     // Open a connection with the Java dev-mode handler in order to finish
@@ -719,7 +722,7 @@ export const vaadinConfig: UserConfigFn = (env) => {
       ]
     },
     plugins: [
-      !devMode && !devBundle && brotli(),
+      productionMode && brotli(),
       devMode && vaadinBundlesPlugin(),
       devMode && showRecompileReason(),
       settings.offlineEnabled && buildSWPlugin({ devMode }),
@@ -800,7 +803,7 @@ export const vaadinConfig: UserConfigFn = (env) => {
       checker({
         typescript: true
       }),
-      !devMode && visualizer({ brotliSize: true, filename: bundleSizeFile })
+      productionMode && visualizer({brotliSize: true, filename: bundleSizeFile})
     ]
   };
 };
