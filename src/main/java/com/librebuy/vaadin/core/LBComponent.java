@@ -17,8 +17,13 @@ public class LBComponent<SELF extends LBComponent<SELF, BASE>, BASE extends Comp
         this.base = base;
         this.context = context;
 
-        if (context instanceof ComponentHasComponents<?, ?> hasComponents)
+        LBComponentTracker.trackCreate(base);
+
+        if (context instanceof ComponentHasComponents<?, ?> hasComponents) {
             hasComponents.add(this);
+
+            LBComponentTracker.trackAttach(base);
+        }
     }
 
 
