@@ -12,4 +12,8 @@ public interface ComponentWrapper<SELF extends LBComponent<SELF, BASE>, BASE ext
         return (SELF) this;
     }
 
+    default ComponentHelper<SELF, BASE> getHelper() {
+        return self().helper;
+    }
+
 }

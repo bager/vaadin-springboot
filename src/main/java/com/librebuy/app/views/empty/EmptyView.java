@@ -2,6 +2,7 @@ package com.librebuy.app.views.empty;
 
 import com.librebuy.app.views.MainLayout;
 import com.librebuy.vaadin.component.Div;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
@@ -10,6 +11,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
+
+import java.time.LocalDateTime;
 
 @PageTitle("Empty")
 @Route(value = "empty", layout = MainLayout.class)
@@ -37,11 +40,15 @@ public class EmptyView extends VerticalLayout {
                 .style("color", "red")
                 .setText("Pierwszy firstDiv");
 
-        firstDiv.$div()
+        Div secondDiv = firstDiv.$div()
                 .style("color", "blue")
-                .setText("Drugi secondDiv");
+                .setText(() -> "Drugi secondDiv " + (LocalDateTime.now()));
 
-        add(firstDiv.getBase());
+        Button refreshButton = new Button("Odśwież", event -> {
+            secondDiv.update();
+        });
+
+        add(firstDiv.getBase(), refreshButton);
     }
 
 }

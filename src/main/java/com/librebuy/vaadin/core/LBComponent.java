@@ -13,9 +13,13 @@ public class LBComponent<SELF extends LBComponent<SELF, BASE>, BASE extends Comp
     protected final BASE base;
     protected final HasSessionContext context;
 
+    protected final ComponentHelper<SELF, BASE> helper;
+
+    @SuppressWarnings("unchecked")
     protected LBComponent(HasSessionContext context, BASE base) {
         this.base = base;
         this.context = context;
+        this.helper = new ComponentHelper<>((SELF) this);
 
         LBComponentTracker.trackCreate(base);
 
@@ -24,6 +28,10 @@ public class LBComponent<SELF extends LBComponent<SELF, BASE>, BASE extends Comp
 
             LBComponentTracker.trackAttach(base);
         }
+    }
+
+    public void update() {
+        helper.update();
     }
 
 

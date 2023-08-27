@@ -5,6 +5,8 @@ import com.librebuy.vaadin.core.LBComponent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasText;
 
+import java.util.function.Supplier;
+
 @SuppressWarnings("unused")
 public interface ComponentHasText<SELF extends LBComponent<SELF, BASE>, BASE extends Component>
         extends ComponentWrapper<SELF, BASE> {
@@ -16,6 +18,11 @@ public interface ComponentHasText<SELF extends LBComponent<SELF, BASE>, BASE ext
 
     default SELF setText(String text) {
         hasText().setText(text);
+        return self();
+    }
+
+    default SELF setText(Supplier<String> text) {
+        getHelper().addSupplier("innerText", this::setText, text);
         return self();
     }
 
