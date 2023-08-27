@@ -44,11 +44,21 @@ public class EmptyView extends VerticalLayout {
                 .setText("Pierwszy Div");
 
         Div styleDiv = parentDiv.$div()
-                .styleSupplier(s -> {
+                .addProperty("data", LocalDateTime::now);
+        styleDiv.styleSupplier(s -> {
+                    System.out.println("new style:" + LocalDateTime.now());
+                    LocalDateTime data = styleDiv.getProperty("data", LocalDateTime.class);
+                    System.out.println("style:" + data);
+
                     boolean isOdd = LocalDateTime.now().getSecond() % 2 == 0;
                     s.setColor(isOdd ? "blue" : "green");
                 })
-                .setText(() -> "Drugi Div " + (LocalDateTime.now()));
+                .setText(() -> {
+                    System.out.println("new text:" + LocalDateTime.now());
+                    LocalDateTime data = styleDiv.getProperty("data", LocalDateTime.class);
+                    System.out.println("text:" + data);
+                    return "Drugi Div " + (LocalDateTime.now());
+                });
 
         Div rendererDiv = parentDiv.$div()
                 .addSupplier(div -> {

@@ -6,6 +6,8 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasText;
 import lombok.Getter;
 
+import java.util.function.Supplier;
+
 public class LBComponent<SELF extends LBComponent<SELF, BASE>, BASE extends Component>
         implements ComponentWrapper<SELF, BASE> {
 
@@ -28,6 +30,15 @@ public class LBComponent<SELF extends LBComponent<SELF, BASE>, BASE extends Comp
 
             LBComponentTracker.trackAttach(base);
         }
+    }
+
+    public <T> T getProperty(String name, Class<T> propClass) {
+        return helper.getProperty(name, propClass);
+    }
+
+    public SELF addProperty(String name, Supplier<Object> propSupplier) {
+        helper.addProperty(name, propSupplier);
+        return self();
     }
 
     public void update() {
