@@ -13,6 +13,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @PageTitle("Empty")
 @Route(value = "empty", layout = MainLayout.class)
@@ -36,22 +37,34 @@ public class EmptyView extends VerticalLayout {
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         getStyle().set("text-align", "center");
 
-        Div firstDiv = new Div(null)
-                .style(s -> s.setColor("red"))
-                .setText("Pierwszy firstDiv");
+        Div parentDiv = new Div(null);
 
-        Div secondDiv = firstDiv.$div()
+        Div textDiv = parentDiv.$div()
+                .style(s -> s.setColor("red"))
+                .setText("Pierwszy Div");
+
+        Div styleDiv = parentDiv.$div()
                 .styleSupplier(s -> {
                     boolean isOdd = LocalDateTime.now().getSecond() % 2 == 0;
                     s.setColor(isOdd ? "blue" : "green");
                 })
-                .setText(() -> "Drugi secondDiv " + (LocalDateTime.now()));
+                .setText(() -> "Drugi Div " + (LocalDateTime.now()));
+
+        Div rendererDiv = parentDiv.$div()
+                .addSupplier(div -> {
+                    Random random = new Random();
+                    int num = random.nextInt(5) + 1;
+                    for (int i = 0; i < num; i++) {
+                        div.$div().setText("Div " + i);
+                    }
+                });
 
         Button refreshButton = new Button("Odśwież", event -> {
-            secondDiv.update();
+            styleDiv.update();
+            rendererDiv.update();
         });
 
-        add(firstDiv.getBase(), refreshButton);
+        add(parentDiv.getBase(), refreshButton);
     }
 
 }

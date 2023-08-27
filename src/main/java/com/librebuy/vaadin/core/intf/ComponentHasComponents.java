@@ -6,6 +6,10 @@ import com.librebuy.vaadin.core.LBComponent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
 public interface ComponentHasComponents<SELF extends LBComponent<SELF, BASE>, BASE extends Component>
         extends ComponentWrapper<SELF, BASE>, ComponentFactory<SELF, BASE> {
 
@@ -20,6 +24,31 @@ public interface ComponentHasComponents<SELF extends LBComponent<SELF, BASE>, BA
 
     default SELF add(Component component) {
         hasComponents().add(component);
+        return self();
+    }
+
+    default SELF addSupplier(Consumer<SELF> consumer) {
+        // FixMe: Add function to remove all children
+        getHelper().addSupplier("renderer", self -> {
+            removeAll();
+            consumer.accept(self);
+        }, this::self);
+        return self();
+    }
+
+    default SELF remove(LBComponent<?, ?>... components) {
+        List<Component> baseComponents = Arrays.stream(components).map(LBComponent::getBase).map(Component.class::cast).toList();
+        hasComponents().remove(baseComponents);
+        return self();
+    }
+
+    default SELF remove(Component... components) {
+        hasComponents().remove(components);
+        return self();
+    }
+
+    default SELF removeAll() {
+        hasComponents().removeAll();
         return self();
     }
 
