@@ -6,6 +6,8 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.dom.Style;
 
+import java.util.function.Consumer;
+
 @SuppressWarnings("unused")
 public interface ComponentHasStyle<SELF extends LBComponent<SELF, BASE>, BASE extends Component>
         extends ComponentWrapper<SELF, BASE> {
@@ -20,6 +22,16 @@ public interface ComponentHasStyle<SELF extends LBComponent<SELF, BASE>, BASE ex
 
     default SELF style(String name, String value) {
         getStyle().set(name, value);
+        return self();
+    }
+
+    default SELF style(Consumer<Style> styleConsumer) {
+        styleConsumer.accept(getStyle());
+        return self();
+    }
+
+    default SELF styleSupplier(Consumer<Style> styleSupplier) {
+        getHelper().addSupplier("style", styleSupplier, this::getStyle);
         return self();
     }
 

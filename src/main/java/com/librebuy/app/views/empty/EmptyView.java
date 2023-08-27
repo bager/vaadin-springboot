@@ -37,11 +37,14 @@ public class EmptyView extends VerticalLayout {
         getStyle().set("text-align", "center");
 
         Div firstDiv = new Div(null)
-                .style("color", "red")
+                .style(s -> s.setColor("red"))
                 .setText("Pierwszy firstDiv");
 
         Div secondDiv = firstDiv.$div()
-                .style("color", "blue")
+                .styleSupplier(s -> {
+                    boolean isOdd = LocalDateTime.now().getSecond() % 2 == 0;
+                    s.setColor(isOdd ? "blue" : "green");
+                })
                 .setText(() -> "Drugi secondDiv " + (LocalDateTime.now()));
 
         Button refreshButton = new Button("Odśwież", event -> {
