@@ -5,9 +5,12 @@ buildscript {
     }
 }
 plugins {
+    // https://plugins.gradle.org/plugin/org.springframework.boot
     id 'org.springframework.boot' version '3.1.3'
+    // https://plugins.gradle.org/plugin/io.spring.dependency-management
     id 'io.spring.dependency-management' version '1.1.3'
-//    id 'org.graalvm.buildtools.native' version '0.9.23'
+    // https://mvnrepository.com/artifact/org.graalvm.buildtools/native-gradle-plugin
+//    id 'org.graalvm.buildtools.native' version '0.9.25'
     id 'java'
     id 'com.vaadin'
 }
@@ -43,6 +46,10 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
+    def immutablesVersion = "2.9.2"
+    compileOnly "org.immutables:value:$immutablesVersion"
+    annotationProcessor "org.immutables:value:$immutablesVersion"
 
     runtimeOnly('org.postgresql:postgresql')
     implementation('org.parttio:line-awesome:1.1.0')
