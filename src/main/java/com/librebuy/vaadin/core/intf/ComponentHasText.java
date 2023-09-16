@@ -1,10 +1,12 @@
 package com.librebuy.vaadin.core.intf;
 
+import com.librebuy.vaadin.core.ComponentProps;
 import com.librebuy.vaadin.core.ComponentWrapper;
 import com.librebuy.vaadin.core.LBComponent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasText;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -24,6 +26,10 @@ public interface ComponentHasText<SELF extends LBComponent<SELF, BASE>, BASE ext
     default SELF setText(Supplier<String> text) {
         getHelper().addSupplier("innerText", this::setText, text);
         return self();
+    }
+
+    default SELF setText(Function<ComponentProps<SELF, BASE>, String> text) {
+        return setText(() -> text.apply(this));
     }
 
     default String getText() {

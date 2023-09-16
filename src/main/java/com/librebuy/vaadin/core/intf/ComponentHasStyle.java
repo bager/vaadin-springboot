@@ -1,11 +1,13 @@
 package com.librebuy.vaadin.core.intf;
 
+import com.librebuy.vaadin.core.ComponentProps;
 import com.librebuy.vaadin.core.ComponentWrapper;
 import com.librebuy.vaadin.core.LBComponent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.dom.Style;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
@@ -33,6 +35,10 @@ public interface ComponentHasStyle<SELF extends LBComponent<SELF, BASE>, BASE ex
     default SELF styleSupplier(Consumer<Style> styleSupplier) {
         getHelper().addSupplier("style", styleSupplier, this::getStyle);
         return self();
+    }
+
+    default SELF styleSupplier(BiConsumer<ComponentProps<SELF, BASE>, Style> styleSupplier) {
+        return styleSupplier(style -> styleSupplier.accept(this, style));
     }
 
     default boolean hasClassName(String className) {

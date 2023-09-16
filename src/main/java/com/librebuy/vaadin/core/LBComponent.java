@@ -32,10 +32,12 @@ public class LBComponent<SELF extends LBComponent<SELF, BASE>, BASE extends Comp
         }
     }
 
+    @Override
     public <T> T getProperty(String name, Class<T> propClass) {
         return helper.getProperty(name, propClass);
     }
 
+    @Override
     public SELF addProperty(String name, Supplier<Object> propSupplier) {
         helper.addProperty(name, propSupplier);
         return self();
