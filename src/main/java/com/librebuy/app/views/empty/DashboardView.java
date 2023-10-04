@@ -4,29 +4,26 @@ import com.librebuy.app.views.MainLayout;
 import com.librebuy.vaadin.component.Div;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
+import jakarta.annotation.security.PermitAll;
 
 import java.time.LocalDateTime;
 import java.util.Random;
 
-@PageTitle("Empty")
-@Route(value = "empty", layout = MainLayout.class)
-@AnonymousAllowed
-public class EmptyView extends VerticalLayout {
+@PageTitle("Dashboard")
+@Route(value = "dashboard", layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
+@PermitAll
+public class DashboardView extends VerticalLayout {
 
-    public EmptyView() {
+    public DashboardView() {
         setSpacing(false);
-
-        Image img = new Image("images/empty-plant.png", "placeholder plant");
-        img.setWidth("200px");
-        add(img);
-
         H2 header = new H2("This place intentionally left empty");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         add(header);

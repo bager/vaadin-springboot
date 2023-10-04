@@ -7,7 +7,7 @@ import com.librebuy.app.views.addressform.AddressFormView;
 import com.librebuy.app.views.chat.ChatView;
 import com.librebuy.app.views.checkoutform.CheckoutFormView;
 import com.librebuy.app.views.creditcardform.CreditCardFormView;
-import com.librebuy.app.views.empty.EmptyView;
+import com.librebuy.app.views.empty.DashboardView;
 import com.librebuy.app.views.empty2.Empty2View;
 import com.librebuy.app.views.empty3.Empty3View;
 import com.librebuy.app.views.empty4.Empty4View;
@@ -65,7 +65,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("Vaadin Demo");
+        H1 appName = new H1("LibreBuy");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -76,6 +76,12 @@ public class MainLayout extends AppLayout {
 
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
+
+
+        if (accessChecker.hasAccess(DashboardView.class)) {
+            nav.addItem(new SideNavItem("Dashboard", DashboardView.class, LineAwesomeIcon.FILE.create()));
+
+        }
 
         if (accessChecker.hasAccess(HelloWorldView.class)) {
             nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
@@ -111,10 +117,6 @@ public class MainLayout extends AppLayout {
         }
         if (accessChecker.hasAccess(ChatView.class)) {
             nav.addItem(new SideNavItem("Chat", ChatView.class, LineAwesomeIcon.COMMENTS.create()));
-
-        }
-        if (accessChecker.hasAccess(EmptyView.class)) {
-            nav.addItem(new SideNavItem("Empty", EmptyView.class, LineAwesomeIcon.FILE.create()));
 
         }
         if (accessChecker.hasAccess(Empty2View.class)) {
