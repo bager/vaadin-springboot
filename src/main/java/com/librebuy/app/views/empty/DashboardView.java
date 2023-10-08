@@ -1,5 +1,6 @@
 package com.librebuy.app.views.empty;
 
+import com.librebuy.app.views.I18n;
 import com.librebuy.app.views.MainLayout;
 import com.librebuy.vaadin.component.Div;
 import com.vaadin.flow.component.button.Button;
@@ -9,7 +10,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 import jakarta.annotation.security.PermitAll;
 
@@ -55,7 +55,9 @@ public class DashboardView extends VerticalLayout {
                     System.out.println("new text:" + LocalDateTime.now());
                     LocalDateTime data = props.getProperty(DATE_PROP, LocalDateTime.class);
                     System.out.println("text:" + data);
-                    return "Drugi Div " + (LocalDateTime.now());
+                    return getTranslation(I18n.SAVE.getKey());
+//                    return getTranslation("core.action.save");
+//                    return "Drugi Div " + (LocalDateTime.now());
                 });
 
         Div rendererDiv = parentDiv.$div()
