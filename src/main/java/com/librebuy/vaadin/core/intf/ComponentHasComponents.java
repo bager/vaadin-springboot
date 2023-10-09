@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public interface ComponentHasComponents<SELF extends LBComponent<SELF, BASE>, BASE extends Component>
         extends ComponentWrapper<SELF, BASE>, ComponentFactory<SELF, BASE> {
 

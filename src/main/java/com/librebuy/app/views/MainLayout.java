@@ -7,7 +7,7 @@ import com.librebuy.app.views.addressform.AddressFormView;
 import com.librebuy.app.views.chat.ChatView;
 import com.librebuy.app.views.checkoutform.CheckoutFormView;
 import com.librebuy.app.views.creditcardform.CreditCardFormView;
-import com.librebuy.app.views.empty.DashboardView;
+import com.librebuy.app.views.dashboard.DashboardView;
 import com.librebuy.app.views.empty2.Empty2View;
 import com.librebuy.app.views.empty3.Empty3View;
 import com.librebuy.app.views.empty4.Empty4View;

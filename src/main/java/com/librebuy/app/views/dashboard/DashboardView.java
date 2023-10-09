@@ -1,4 +1,4 @@
-package com.librebuy.app.views.empty;
+package com.librebuy.app.views.dashboard;
 
 import com.librebuy.app.views.MainLayout;
 import com.librebuy.vaadin.component.Div;
@@ -9,7 +9,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 import jakarta.annotation.security.PermitAll;
 
@@ -64,6 +63,14 @@ public class DashboardView extends VerticalLayout {
                     int num = random.nextInt(5) + 1;
                     for (int i = 0; i < num; i++) {
                         div.$div().setText("Div " + i);
+                        div.$textField().setValue("Val " + i)
+                                .onChange(event -> {
+                                    System.out.println("EVENT:" + event);
+                                })
+                                .onValueChange(val -> {
+                                    System.out.println("VAL: " + val);
+                                });
+
                     }
                 });
 
