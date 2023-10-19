@@ -144,8 +144,14 @@ public class P6SpyAppender extends Slf4JLogger {
         String[] values = newTableAliases.values().toArray(new String[0]);
 
         if (keys.length == 1) {
-            keys = new String[]{keys[0] + ".", " " + keys[0]};
-            values = new String[]{"", ""};
+            if (sql.endsWith(" " + keys[0])) {
+                sql = sql.substring(0, sql.length() - keys[0].length() - 1);
+                keys = new String[]{keys[0] + "."};
+                values = new String[]{""};
+            } else {
+                keys = new String[]{keys[0] + ".", keys[0] + " "};
+                values = new String[]{"", ""};
+            }
         }
 
         return StringUtils.replaceEach(sql, keys, values);
