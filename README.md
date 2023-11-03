@@ -59,7 +59,8 @@ Run the following command in this repo:
 ./gradlew clean build -Pvaadin.productionMode
 ```
 
-That will build this app in production mode as a runnable jar archive; please find the jar file in `build/libs/base-starter-spring-gradle*.jar`.
+That will build this app in production mode as a runnable jar archive; please find the jar file
+in `build/libs/base-starter-spring-gradle*.jar`.
 You can run the JAR file with:
 
 ```bash
@@ -67,11 +68,18 @@ cd build/libs/
 java -jar base-starter-spring-gradle*.jar
 ```
 
+```bash
+docker build -t librebuy .
+docker run -p 8080:8080 librebuy
+docker run --rm --name librebuy --network postgres-pgadmin_default --env DB_HOST=local_pgdb -p 8080:8080 librebuy
+```
+
 Now you can open the [http://localhost:8080](http://localhost:8080) with your browser.
 
 ### Building In Production On CI
 
-Usually the CI images will not have node.js+npm available. However, Vaadin Gradle Plugin will download it for you automatically, there is no need for you to do anything.
+Usually the CI images will not have node.js+npm available. However, Vaadin Gradle Plugin will download it for you
+automatically, there is no need for you to do anything.
 To build your app for production in CI, just run:
 
 ```bash
