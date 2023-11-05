@@ -71,7 +71,8 @@ java -jar base-starter-spring-gradle*.jar
 ```bash
 docker build -t librebuy .
 docker run -p 8080:8080 librebuy
-docker run --rm --name librebuy --network postgres-pgadmin_default --env DB_HOST=local_pgdb -p 8080:8080 librebuy
+docker run --rm --name librebuy --network postgres-pgadmin_default --network-alias=librebuy --env DB_HOST=local_pgdb -p 8080:8080 librebuy
+docker run --rm --name librebuy --network postgres-pgadmin_default --network-alias=librebuy --env DB_HOST=local_pgdb -p 8443:8443 librebuy
 ```
 
 Now you can open the [http://localhost:8080](http://localhost:8080) with your browser.
