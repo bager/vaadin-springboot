@@ -72,11 +72,17 @@ java -jar base-starter-spring-gradle*.jar
 docker run --rm -v .:/app -v ~/.gradle:/root/.gradle --entrypoint /bin/sh eclipse-temurin:21-jdk \
 -c "cd /app && chmod +x gradlew && ./gradlew && ./gradlew clean && ./gradlew build -x test -Pvaadin.productionMode"
 
+docker run --rm -v .:/app -v ~/.gradle:/root/.gradle --entrypoint /bin/sh gradle:8.4-jdk21-jammy \
+-c "cd /app && chmod +x gradle && gradle clean build -x test -Pvaadin.productionMode"
+
 
 docker build -t librebuy .
 docker run -p 8080:8080 librebuy
 docker run --rm --name librebuy --network postgres-pgadmin_default --network-alias=librebuy --env DB_HOST=local_pgdb -p 8080:8080 librebuy
 docker run --rm --name librebuy --network postgres-pgadmin_default --network-alias=librebuy --env DB_HOST=local_pgdb -p 8443:8443 librebuy
+
+docker run -d --restart always --name librebuy --network postgres-pgadmin_default --network-alias=librebuy --env DB_HOST=local_pgdb -p 8443:8443 librebuy
+
 ```
 
 Now you can open the [http://localhost:8080](http://localhost:8080) with your browser.
