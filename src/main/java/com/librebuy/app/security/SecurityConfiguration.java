@@ -22,6 +22,7 @@ public class SecurityConfiguration extends VaadinWebSecurity {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((auth) -> auth
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/favicon.ico")).permitAll()
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/images/*.png")).permitAll()
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/line-awesome/**/*.svg")).permitAll() // Icons from the line-awesome addon
         );
