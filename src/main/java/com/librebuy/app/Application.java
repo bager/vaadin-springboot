@@ -3,6 +3,7 @@ package com.librebuy.app;
 import com.librebuy.app.data.service.SamplePersonRepository;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.shared.ui.Transport;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,7 @@ import javax.sql.DataSource;
  */
 @SpringBootApplication
 @Theme(value = "vaadindemo")
-@Push
+@Push(transport = Transport.WEBSOCKET)
 public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {
