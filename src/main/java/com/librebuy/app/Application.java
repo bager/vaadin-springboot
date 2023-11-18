@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  */
 @SpringBootApplication
 @Theme(value = "vaadindemo")
-@Push(transport = Transport.WEBSOCKET)
+@Push(transport = Transport.WEBSOCKET_XHR)
 public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {
