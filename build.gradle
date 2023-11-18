@@ -8,7 +8,7 @@ plugins {
     // https://plugins.gradle.org/plugin/org.springframework.boot
     id 'org.springframework.boot' version '3.1.5'
     // https://plugins.gradle.org/plugin/io.spring.dependency-management
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'io.spring.dependency-management' version '1.1.4'
     // https://mvnrepository.com/artifact/org.graalvm.buildtools/native-gradle-plugin
 //    id 'org.graalvm.buildtools.native' version '0.9.27'
     id 'com.vaadin'
@@ -49,7 +49,7 @@ dependencies {
 
     runtimeOnly('org.postgresql:postgresql')
     // https://mvnrepository.com/artifact/org.parttio/line-awesome
-    implementation('org.parttio:line-awesome:1.1.0')
+    implementation('org.parttio:line-awesome:2.0.0')
     // https://mvnrepository.com/artifact/com.github.gavlyukovskiy/p6spy-spring-boot-starter
     implementation('com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0')
 }
